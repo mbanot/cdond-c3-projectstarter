@@ -97,7 +97,7 @@ jobs:
             
   scan-frontend:
     docker:
-      # Docker image here
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
