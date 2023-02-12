@@ -129,7 +129,9 @@ jobs:
             npm install
             # npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
-
+            npm install passport-jwt@4.0.1
+            npm update mkdirp --depth 2
+            npm update path-parse --depth 3
             npm audit --audit-level=critical
 
 #   deploy-infrastructure:
