@@ -113,19 +113,19 @@ jobs:
   #     # Your job code here
 
   # scan-backend:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-myapp-cache
-      - run:
-          name:
-          command: |
-            cd backend
-            npm install
-            # npm install oauth-sign@^0.9.0
-            npm audit --audit-level=critical
+    # docker:
+    #   - image: circleci/node:13.8.0
+    # steps:
+    #   - checkout
+    #   - restore_cache:
+    #       key: v1-myapp-cache
+    #   - run:
+    #       name:
+    #       command: |
+    #         cd backend
+    #         npm install
+    #         # npm install oauth-sign@^0.9.0
+    #         npm audit --audit-level=critical
       # Your job code here
 
 #   deploy-infrastructure:
