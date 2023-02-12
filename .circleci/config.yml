@@ -75,7 +75,7 @@ jobs:
       - restore_cache:
           key: v1-myapp-cache
       - run:
-        description: Test the frontend
+        name: Test the frontend
         command: |
           cd frontend
           npm install
@@ -89,7 +89,7 @@ jobs:
       - restore_cache:
           key: v1-myapp-cache
       - run:
-        description: Test the frontend
+        name: Test the frontend
         command: |
           cd frontend
           npm install
