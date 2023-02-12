@@ -1,0 +1,33 @@
+---
+- name: "update packages."
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: "upgrade packages"
+  become: yes
+  apt:
+    upgrade: yes
+
+- name: Install npm
+  yum:
+    name: python3
+    state: present
+
+- name: Install nodejs
+  apt:
+    name: nodejs16
+    state: present
+
+- name: Install npm
+  yum:
+    name: npm
+    state: present
+
+- name: install pm2
+  become: true
+  npm:
+    name: pm2@3.2.2
+    global: yes
+    production: yes
+    state: present
