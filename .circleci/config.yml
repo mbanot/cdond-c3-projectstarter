@@ -89,7 +89,7 @@ jobs:
       - restore_cache:
           key: v1-myapp-cache
       - run:
-          name: Test the frontend
+          name: Test the backend
           command: |
             cd backend
             npm install
