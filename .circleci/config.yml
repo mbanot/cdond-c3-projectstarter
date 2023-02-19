@@ -160,7 +160,7 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            echo "[web]" > ~/inventory.txt
+            echo "[all]" > ~/inventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' >> ~/inventory.text
       - run:
@@ -188,6 +188,7 @@ jobs:
       - run:
           name: Install dependences
           command: |
+            cat ~/inventory.txt 
             apk add tar gzip ansible ansible
       - run:
           name: Configure server
