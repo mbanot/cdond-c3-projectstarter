@@ -10,7 +10,7 @@
     upgrade: yes
 
 - name: Install npm
-  yum:
+  apt:
     name: python3
     state: present
 
