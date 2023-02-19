@@ -162,7 +162,8 @@ jobs:
           command: |
             echo "[all]" > ~/inventory.txt
             aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' >> ~/inventory.text
+            --query 'Reservations[*].Instances[*].PublicIpAddress' >> ~/inventory.text \
+            --filters Name=instance-state-name,Values=running
       - run:
           name: Install tar utility
           command: |
