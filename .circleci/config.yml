@@ -112,10 +112,6 @@ jobs:
             # npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
             npm audit fix --audit-level=critical --force
-            # npm update js-yaml --depth 4
-            # npm update minimist --depth 4
-            # npm update loader-utils --depth 2
-            # npm update json5 --depth 3
             npm audit --audit-level=critical
 
   scan-backend:
@@ -133,9 +129,6 @@ jobs:
             # npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
             npm audit fix --audit-level=critical --force
-            # npm install passport-jwt@4.0.1
-            # npm update mkdirp --depth 2
-            # npm update path-parse --depth 3
             npm audit --audit-level=critical
 
   deploy-infrastructure:
@@ -162,11 +155,13 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            echo "[all]" > ~/inventory.txt
-
-            aws ec2 describe-instances \
+            BACKEND_PUBLIC_IP = $(aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters Name=instance-state-name,Values=running >> ~/inventory.text
+            --filters Name=instance-state-name,Values=running --output text
+            echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+            
       - run:
           name: Install tar utility
           command: |
@@ -196,24 +191,8 @@ jobs:
       - run:
           name: Configure server
           command: |
-            # cd .circleci/ansible
-            # ansible-playbook -i ~/inventory.txt configure-server.yml
-            cat ./.circleci/ansible/inventory.txt
-            export ANSIBLE_HOST_KEY_CHECKING=False
-            export RECORD_HOST_KEYS=False
-            export ANSIBLE_PARAMIKO_BANNER_TIMEOUT=30   
-            echo ENVIROMENT=production > "backend/.env"      
-            echo TYPEORM_CONNECTION=postgres >> "backend/.env"
-            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "backend/.env"
-            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> "backend/.env"          
-            echo TYPEORM_PORT=$TYPEORM_PORT >> "backend/.env"      
-            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"            
-            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"      
-            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"     
-            echo "CONTENT OF backend/.env"      
-            cat backend/.env         
             cd .circleci/ansible
-            ansible-playbook -i inventory.txt configure-server.yml -v 
+            ansible-playbook -i ~/inventory.txt configure-server.yml
       - destroy-environment
 
   # run-migrations:
