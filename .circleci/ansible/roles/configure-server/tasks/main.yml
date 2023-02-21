@@ -1,22 +1,17 @@
 ---
-- name: "update packages."
-  become: yes
+- name: "Update apt packages"
+  become: true
   apt:
     update_cache: yes
 
-- name: "upgrade packages"
-  become: yes
+- name: "Remove dependencies that are no longer required"
+  become: true
   apt:
-    upgrade: yes
-
-- name: Install npm
-  apt:
-    name: python3
-    state: present
+    autoremove: yes
 
 - name: Install nodejs
   apt:
-    name: nodejs16
+    name: nodejs
     state: present
 
 - name: Install npm
