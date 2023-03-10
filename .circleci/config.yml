@@ -124,7 +124,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: [backend-build]
+          keys: [backend-build]
       - run:
           name: Scan / Audit BACKEND
           command: |
