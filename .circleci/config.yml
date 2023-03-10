@@ -80,7 +80,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: [frontend-build]
+          keys: [frontend-build]
       - run:
           name: Test the frontend
           command: |
@@ -94,7 +94,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: [backend-build]
+          keys: [backend-build]
       - run:
           name: Test the backend
           command: |
@@ -108,7 +108,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: [frontend-build]
+          keys: [frontend-build]
       - run: 
           name: Scan / Audit FRONTEND
           command: |
