@@ -14,16 +14,11 @@
   apt:
     autoremove: yes
 
-- name: Install nodejs
+- name: "install NodeJS and NPM"
+  become: true
   apt:
-    name: nodejs
-    state: present
-    update_cache: yes
-
-- name: Install npm
-  yum:
-    name: npm
-    state: present
+    name: ["nodejs", "npm"]
+    state: latest
     update_cache: yes
 
 - name: install pm2
