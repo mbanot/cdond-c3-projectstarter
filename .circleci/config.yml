@@ -16,7 +16,7 @@ commands:
       - run:
           name: Destroy environments (frontend)
           command: |
-            # aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive 
+            aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive 
             aws cloudformation delete-stack \
               --stack-name udapeople-frontend-<<parameters.workflow_id>>
 
@@ -31,7 +31,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = $(curl --insecure https://kvdb.io/UYCsQnQRXH2EAPU9svtRhn/migration_<<parameters.workflow_id>>) 
+            export SUCCESS = $(curl --insecure https://kvdb.io/UYCsQnQRXH2EAPU9svtRhn/migration_<<parameters.workflow_id>>) 
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
@@ -167,7 +167,7 @@ jobs:
           name: Install tar utility
           command: |
             yum install -y tar gzip
-            
+
       - persist_to_workspace:
           root: ~/
           paths:
