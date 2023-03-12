@@ -31,7 +31,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = $(curl --insecure https://kvdb.io/EjdPtF7S5jBwvP7vnZGMhi/migration_<<parameters.workflow_id>>) 
+            SUCCESS = $(curl --insecure https://kvdb.io/UYCsQnQRXH2EAPU9svtRhn/migration_<<parameters.workflow_id>>) 
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
@@ -241,6 +241,7 @@ jobs:
             python3 get-pip.py --user
             python3 -m pip install --user ansible
             curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
+            yum install -y nodejs
             node --verison 
             npm --version
       - attach_workspace:
