@@ -31,7 +31,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            export SUCCESS = $(curl --insecure https://kvdb.io/UYCsQnQRXH2EAPU9svtRhn/migration_<<parameters.workflow_id>>) 
+            export SUCCESS=$(curl --insecure https://kvdb.io/UYCsQnQRXH2EAPU9svtRhn/migration_<<parameters.workflow_id>>) 
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
@@ -268,10 +268,10 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - revert-migrations:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
                     
   # deploy-backend:
   #   docker:
